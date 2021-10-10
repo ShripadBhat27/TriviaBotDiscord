@@ -21,7 +21,6 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 
-lichess_tokens = list()
 
 userpoints = dict()
 
@@ -46,53 +45,6 @@ msgid = ""
 shunya = 0 
 
 
-# num="10"
-# diff="medium"
-# URL="https://opentdb.com/api.php?amount="+num+"&category=14&difficulty="+diff+"&type=multiple"
-# r=requests.get(url=URL)
-# data=r.json()
-# que=data["results"][1]["question"]
-# print(que)
-
-
-# print(str.replace("&#039;", "'"))
-# print(str.replace("&quot;","\""))
-# if "responding" not in db.keys():
-#   db["responding"] = True
-
-# def get_quote():
-#   response = requests.get("https://zenquotes.io/api/random")
-#   json_data = json.loads(response.text)
-#   quote = json_data[0]['q'] + " -" + json_data[0]['a']
-#   return(quote)
-# &#039; -> '
-# &quot; -> "  
-# def update_encouragements(encouraging_message):
-#   if "encouragements" in db.keys():
-#     encouragements = db["encouragements"]
-#     encouragements.append(encouraging_message)
-#     db["encouragements"] = encouragements
-#   else:
-#     db["encouragements"] = [encouraging_message]
-
-# def delete_encouragment(index):
-#   encouragements = db["encouragements"]
-#   if len(encouragements) > index:
-#     del encouragements[index]
-#     db["encouragements"] = encouragements
-
-def matchlink(index1,index2):
-  tokenone=lichess_tokens[index1]
-  session = berserk.TokenSession(tokenone)
-  clientone = berserk.Client(session=session)
-  user_details = clientone.account.get()
-  token2=lichess_tokens[index2]
-  session2 = berserk.TokenSession(token2)
-  client2 = berserk.Client(session=session2)
-  t=client2.challenges.create(user_details['id'],True,None,None,None,None,None,None)
-  return t
-
-
        
 def timerfun(lastmessage):
     print("helloworld ")
@@ -112,10 +64,6 @@ async def on_message(message):
 
     msg = message.content
     name=message.author
-    if(name in db.keys()):
-        sender_presense=True
-
-
     
 
 
@@ -234,32 +182,10 @@ async def on_message(message):
         await message.channel.send(resultres)
 
     
-
-
-
-    if msg.startswith("!test") : 
-      t = dt.datetime.now()
-      minute_count = 0
-      tot_no_question=5
-      cnt=0
-      while True:
-        delta_minutes = (dt.datetime.now() -t).seconds/3
-        if delta_minutes and delta_minutes !=  minute_count:
-            await message.channel.send("1 Min has passed since the last print")
-            cnt+=1 
-            minute_count = delta_minutes
-            #lastmsg = await message.channel.send() 
-            #msgid =lastmsg.id shoud be a global variable 
-
-
-        sleep(3)# Stop maxing out CPU
-
-        
-        if(cnt==tot_no_question):
-          break                         
+      
           
     if msg.startswith("!help") :
-        await message.channel.send("Commands \n !start_trivia: starts the trivia contest for everyone online in that text channel at that moment \n !n <number_of_questions>: helps to decide the number of questions in the trivia\n!scoreboard : helps to display the scores of participants at the end of trivia")
+        await message.channel.send("Commands \n \n !start_trivia: starts the trivia contest for everyone online in that text channel at that moment\n \n  !n <number_of_questions>: helps to decide the number of questions in the trivia\n \n !scorecard : helps to display the scores of participants at the end of trivia")
 
         
    
@@ -274,13 +200,10 @@ async def on_raw_reaction_add(payload):
     channel = client.get_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
     user = client.get_user(payload.user_id)
-    # await channel.send("we are here ")
-    # await channel.send(payload.message_id)
+    
     userid = payload.user_id
-    # await channel.send(userid)
     #comapre ( msgid with payload.message_id) and compare (msgid--> emojistring with payload emoji to string )if true add score in score wala map
 
-    # if msgid == payload.message_id and payload.emoji == 🧡
 
     if str(payload.emoji) == "🧡":
         print("INside the inner msgid ")
@@ -289,12 +212,6 @@ async def on_raw_reaction_add(payload):
         print_dict()
         modify_dict(userid)
 
-        # if userid not in userpoints : 
-        #     userpoints[userid] = 5
-        # else :
-        #     print(userpoints[userid])
-        #     await channel.send(userpoints[userid])
-        #     userpoints[userid] += 5
 
 
 
@@ -303,4 +220,4 @@ async def on_raw_reaction_add(payload):
         
     
 keep_alive()
-client.run('cant share here check repl.it link from readMe')
+client.run('ODI2NzYzMTM5MDIxOTMwNTQ2.YGRNLA.nP7gDmuNCE1trkKBSdRxmrXrZWk')
