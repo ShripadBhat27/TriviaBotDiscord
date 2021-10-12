@@ -1,3 +1,4 @@
+#hosted it on UptimeRobot ,so bot stays online all the time
 from flask import Flask
 from threading import Thread
 
